@@ -13,8 +13,8 @@
   }
 
   .clock-container {
-    width: 240px;
-    height: 120px;
+    width: 260px;
+    height: 140px;
     background: #FDF8E1;
     border-radius: 22px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
@@ -24,17 +24,35 @@
   }
 
   .clock {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    color: #6b5b2d;
+  }
+
+  .time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .time {
     font-size: 30px;
     font-weight: 600;
-    color: #6b5b2d;
     letter-spacing: 2px;
   }
 
-  .seconds {
-    font-size: 14px;
-    margin-left: 4px;
-    vertical-align: super;
+  .label {
+    font-size: 11px;
+    margin-top: 4px;
     color: #9c8a3a;
+    letter-spacing: 1px;
+  }
+
+  .colon {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 18px;
   }
 </style>
 </head>
@@ -42,15 +60,30 @@
 <body>
   <div class="clock-container">
     <div class="clock">
-      <span id="hours">00</span> :
-      <span id="minutes">00</span>
-      <span class="seconds" id="seconds">00</span>
+      <div class="time-block">
+        <span class="time" id="hours">00</span>
+        <span class="label">HOURS</span>
+      </div>
+
+      <span class="colon">:</span>
+
+      <div class="time-block">
+        <span class="time" id="minutes">00</span>
+        <span class="label">MIN</span>
+      </div>
+
+      <span class="colon">:</span>
+
+      <div class="time-block">
+        <span class="time" id="seconds">00</span>
+        <span class="label">SEC</span>
+      </div>
     </div>
   </div>
 
 <script>
   function updateClock() {
-    const now = new Date(); // local timezone automatically
+    const now = new Date();
 
     const hours = String(now.getHours()).padStart(2, "0");
     const minutes = String(now.getMinutes()).padStart(2, "0");
