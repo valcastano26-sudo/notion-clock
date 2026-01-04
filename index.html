@@ -14,11 +14,11 @@
 
   .clock-container {
     width: 260px;
-    height: 140px;
+    height: 170px;
     background: #FDF8E1;
     border-radius: 22px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
   }
@@ -54,6 +54,13 @@
     font-weight: 600;
     margin-bottom: 18px;
   }
+
+  .timezone {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #9c8a3a;
+    letter-spacing: 1px;
+  }
 </style>
 </head>
 
@@ -79,6 +86,8 @@
         <span class="label">SEC</span>
       </div>
     </div>
+
+    <div class="timezone" id="timezone">—</div>
   </div>
 
 <script>
@@ -94,7 +103,20 @@
     document.getElementById("seconds").textContent = seconds;
   }
 
+  function updateTimezone() {
+    const formatter = new Intl.DateTimeFormat(undefined, {
+      timeZoneName: "short"
+    });
+
+    const parts = formatter.formatToParts(new Date());
+    const timezone = parts.find(p => p.type === "timeZoneName").value;
+
+    document.getElementById("timezone").textContent = timezone;
+  }
+
   updateClock();
+  updateTimezone();
+
   setInterval(updateClock, 1000);
 </script>
 </body>
